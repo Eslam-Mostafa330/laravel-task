@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\article;
-use Illuminate\Contracts\View\View;
+use App\Models\category;
+use App\Models\User;
+// use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
@@ -24,7 +28,10 @@ class ArticleController extends Controller
      */
     public function create(): View
     {
-        return view("admin.article.create");
+        $users = User::all();
+        // $user_name = Auth::user()->name;
+        $categories = category::all();
+        return view("admin.article.create", compact('users', 'categories'));
     }
 
     /**
@@ -32,22 +39,25 @@ class ArticleController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // $user_name = Auth::user()->name;
+        $cover = $request->file('cover');
+        $cover_name = $cover->getClientOriginalName();
+        $cover->move('uploads', $cover_name);
         article::create([
-            'title' =>request('title'),
-            'short_description' =>request('short_description'),
-            'content' =>request('content'),
-            'cover' => request()->file('cover')->store('images')
+            'title' => $request->title,
+            'content' => $request->content,
+            'cover' => $cover_name,
+            'short_description' => $request->short_description,
+            'user_id' => $request->user_id,
+            'category_id' => $request->category_id,
         ]);
-        
-        // $image = $request->file('cover')->getClientOriginalName();
-        $request->file('cover')->store('images');
         return redirect("admin/article");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(article $article): Response
+    public function show(article $article): mixed
     {
         //
     }
@@ -55,7 +65,7 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(article $article): Response
+    public function edit(article $article): mixed
     {
         //
     }
@@ -63,7 +73,7 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, article $article): RedirectResponse
+    public function update(Request $request, article $article): mixed
     {
         //
     }
@@ -71,7 +81,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(article $article): RedirectResponse
+    public function destroy(article $article): mixed
     {
         //
     }

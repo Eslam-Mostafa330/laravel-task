@@ -10,8 +10,16 @@ class comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "name",
+        "email",
+        "review",
+        "article_id"
+    ];
+
     public function article(): BelongsTo
     {
-        return $this->belongsTo(article::class);
+        return $this->belongsTo(article::class, 'article_id', 'id');
     }
+
 }

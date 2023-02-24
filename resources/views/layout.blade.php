@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+
+  <link rel="stylesheet" href="{{asset('assets/plugins/summernote/summernote-bs4.min.css')}}">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -288,7 +291,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            {{-- <h1>Blank Page</h1> --}}
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -354,8 +357,18 @@
 <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+<script src="{{asset('assets/plugins/summernote/summernote-bs4.min.js')}}"></script>
+
+<script>
+  $(function () {
+    $('#summernote').summernote()
+  })
+</script>
+
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
+
 
 
 <!-- AdminLTE for demo purposes -->

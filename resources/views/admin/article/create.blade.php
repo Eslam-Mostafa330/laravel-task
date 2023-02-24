@@ -1,46 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{asset('assets/css/core.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/thesass.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-</head>
-<body>
-    
-    <div class="section mt-5">
-        <div class="container">
+{{-- @include('sweetalert::alert') --}}
 
-          <div class="row gap-y">
-            <div class="col-12 col-md-6">
+@extends('layout')
 
-              <form action="{{url('admin/article/store')}}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="new-article">Create New Article</div>
-                <div class="form-group">
-                  <input class="form-control form-control-lg" type="text" name="title" placeholder="Article Title">
-                </div>
-
-                <div class="form-group">
-                  <input class="form-control form-control-lg" type="text" name="short_description" placeholder="Type a Short Description">
-                </div>
-
-                <div class="form-group">
-                  <textarea class="form-control form-control-lg" name="content" rows="4" placeholder="Article Content"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <input type="file" name="cover" id="cover">
-                    <label for="cover">Insert Article Photo</label>
-                </div>
-
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Save Article</button>
-              </form>
-
-            </div>
-
-</body>
-</html>
+@section('body-content')
+<form enctype="multipart/form-data" action="{{url('admin/article/store')}}" method="post">
+    @csrf
+    <div class="card-body">
+      <div class="form-group">
+        <label>Article Title</label>
+        <input type="text" name="title" class="form-control" placeholder="Article Title">
+      </div>
+      <div class="form-group">
+        <label>Short Description</label>
+        <input type="text" name="short_description" class="form-control" placeholder="Short Description">
+      </div>
+      <div class="form-group">
+        <label>Content</label>
+        <textarea id="" class="form-control" name="content" cols="30" rows="10"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Cover</label>
+        <input type="file" name="cover" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>User</label>
+        <select name="user_id">
+          @foreach ($users as $user)
+          {{-- <input class="form-control" type="text" name="user_id" value="{{$user->name}}" disabled> --}}
+            <option value="{{$user->id}}">{{$user->name}}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select name="category_id">
+          @foreach ($categories as $category)
+            <option value="{{$category->id}}">{{$category->name}}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary col-1">
+      </div>
+    </div>
+  </form>
+@endsection

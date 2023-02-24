@@ -11,17 +11,22 @@ class article extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "title", "short_description", "content", "cover", "user_id", "category_id", "created_at", "updated_at"
+        "title",
+        "short_description",
+        "content",
+        "cover",
+        "user_id",
+        "category_id",
     ];
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(category::class);
+        return $this->belongsTo(category::class, 'category_id', 'id');
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function comment(): HasMany

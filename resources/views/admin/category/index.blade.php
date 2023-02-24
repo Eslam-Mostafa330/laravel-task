@@ -24,7 +24,7 @@
           </tr>
         @empty
         <tr>
-          <td class="text-center" colspan="4">There's no categories</td>
+          <td class="text-center" colspan="4">There's no Categories</td>
         </tr>
         @endforelse
 
